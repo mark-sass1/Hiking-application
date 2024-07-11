@@ -24,8 +24,8 @@ class Trails(db.Model):
    
    trail_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
    trail_name = db.Column(db.String)
-   state_name = db.Column(db.String)
    city_name =db.Column(db.String)
+   state_name = db.Column(db.String)
    latitude = db.Column(db.Float)
    longitude = db.Column(db.Float)
    length = db.Column(db.Integer)
