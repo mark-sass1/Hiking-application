@@ -22,14 +22,14 @@ class Trails(db.Model):
    
    __tablename__= "trails"
    
-   trail_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+   trail_id = db.Column(db.Integer, primary_key=True)
    trail_name = db.Column(db.String)
    city_name =db.Column(db.String)
    state_name = db.Column(db.String)
-   latitude = db.Column(db.Float)
-   longitude = db.Column(db.Float)
-   length = db.Column(db.Integer)
-   elevation_gain = db.Column(db.Integer)
+   latitude = db.Column(db.String)
+   longitude = db.Column(db.String)
+   length = db.Column(db.Float)
+   elevation_gain = db.Column(db.Float)
    difficulty = db.Column(db.Integer)
    route_type = db.Column(db.String)
 
@@ -93,4 +93,5 @@ def connect_to_db(flask_app, db_uri="postgresql:///hiking-buddy", echo=True):
 
 if __name__ == "__main__":
     from server import app
+    app.app_context().push()
     connect_to_db(app)
