@@ -3,12 +3,18 @@
 
 {% block body %}
 <ul>
-    {% for trail in trails %}
+    
+    {% for state in state_list: %}
+      {% if state in states_trails %}
+      <h1>{{ state }}</h1>
+      {% for trail in states_trails[state] %}
       <li>
         <a href="/trails/{{ trail.trail_id }}">
           {{ trail.trail_name }}
         </a>
       </li>
+      {% endfor %}
+      {% endif %}
     {% endfor %}
   </ul>
 

@@ -1,9 +1,13 @@
 from flask import Flask, render_template, request, flash, session, redirect
 from model import connect_to_db, db
-from crud import get_trails, get_trail_by_id, get_users, create_user
+# from crud import get_trails, get_trail_by_id, get_users, create_user
+import crud
 
 
 app = Flask(__name__)
+app.secret_key = "dev"
+
+
 @app.route("/")
 def homepage():
     """Homepage"""
@@ -14,9 +18,33 @@ def homepage():
 def all_trails():
     """View all trails."""
 
-    trails = get_trails()
+    trails = crud.get_trails()
 
-    return render_template("trails_route.html", trails=trails)
+    states_trails = {
+
+    }
+
+    for trail in trails:
+        state = trail.state_name
+        check_trail_state = states_trails.get(state)
+        if check_trail_state is None:
+            states_trails[state]=[trail]
+        else:
+            states_trails[state].append(trail)
+
+    state_list = ["Alabama", "Alaska", "Arizona", "Arkansas", "California", 
+    "Colorado", "Connecticut", "Delaware", "Florida", "Georgia", 
+    "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", 
+    "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", 
+    "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", 
+    "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", 
+    "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", 
+    "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", 
+    "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", 
+    "Washington", "West Virginia", "Wisconsin", "Wyoming"]
+    
+
+    return render_template("trails_route.html", states_trails=states_trails, state_list=state_list)
 
 
 
@@ -24,7 +52,7 @@ def all_trails():
 def get_trail(trail_id):
     """Show details on a particular trail."""
 
-    trail = get_trail_by_id(trail_id)
+    trail = crud.get_trail_by_id(trail_id)
 
     return render_template("trail_details.html", trail=trail)
 
@@ -33,33 +61,70 @@ def get_trail(trail_id):
 def create_user():
     """Create a new user."""
 
+    user_name = request.form.get("name")
     email = request.form.get("email")
     password = request.form.get("password")
-
+    print(user_name, email, password)
     user = crud.get_user_by_email(email)
     if user:
         flash("Cannot create an account with that email. Try again.")
+        return redirect("/")
     else:
-        user = crud.create_user(email, password)
+        user = crud.create_user(user_name, email, password)
         db.session.add(user)
         db.session.commit()
         flash("Account created!")
 
         """Account created, and logged in"""
         session["user_email"] = user.email
+        flash(f"Welcome, {user.name}!")
+        return redirect("/account")
+    
+
+    
+@app.route("/users/<user_id>")
+def show_user(user_id):
+    """User details"""
+
+    user = crud.get_user_by_id(user_id)
+
+    return render_template("user_details.html", user=user)
+
+
+@app.route("/login", methods=["POST"])
+def process_login():
+    """Process user login"""
+
+    email = request.form.get("email")
+    password = request.form.get("password")
+
+    user = crud.get_user_by_email(email)
+    if not user or user.password != password:
+        flash("The email or password you entered was incorrect.")
+    else: # log in user by storing the user's email in session
+        session["user_email"] = user.email
         flash(f"Welcome back, {user.email}!")
+
+        return redirect("/account")
+
+    return redirect("/")
+
+
+@app.route("/account")
+def user_details():
+    """Users account"""
     
-    
-    
-    return redirect("/user_account")
-    
+    user = crud.get_user_by_email(session["user_email"])
+    print(user)
+
+    return render_template("user_details.html", user=user)
 
 
 @app.route("/users")
 def get_users():
     """View all users."""
 
-    users = get_users(users)
+    users = crud.get_users(users)
 
     return render_template("users.html", users=users)
                 

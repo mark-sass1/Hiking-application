@@ -1,10 +1,10 @@
 from model import db, User, Trails, Training_path, Activity_log, Training_trails, connect_to_db
 
 
-def create_user(email, password):
+def create_user(name, email, password):
     """Create and return a new user."""
 
-    user = User(email=email, password=password)
+    user = User(name=name, email=email, password=password)
 
 
     return user
@@ -45,7 +45,7 @@ def create_trail(trail_id, trail_name, city_name, state_name, latitude, longitud
 
 def get_trails():
 
-    return Trails.query.all()
+    return Trails.query.order_by(Trails.trail_name).all()
 
 def get_trail_by_id(trail_id):
 
