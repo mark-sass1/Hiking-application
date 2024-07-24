@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request, flash, session, redirect
-from model import connect_to_db, db
+from model import connect_to_db, db, Trails
 # from crud import get_trails, get_trail_by_id, get_users, create_user
 import crud
+import random
 
 
 app = Flask(__name__)
@@ -117,6 +118,10 @@ def user_details():
     user = crud.get_user_by_email(session["user_email"])
     print(user)
 
+    # get training path by user id
+    # pass training path / summit goal to jinja template
+    # might create crud function to crud.get_training_path_by_user_id()
+
     return render_template("user_details.html", user=user)
 
 
@@ -127,7 +132,34 @@ def get_users():
     users = crud.get_users(users)
 
     return render_template("users.html", users=users)
-                
+
+            
+@app.route("/choose_summit", methods=["POST"])
+def summit_goal():
+
+    trail_id = request.form.get("trail_id")
+    summit_goal = request.form.get("summit_goal")
+
+    trail = crud.get_trail_by_id(trail_id)
+
+    user = crud.get_user_by_email(session["user_email"])
+
+    training_path = crud.create_training_path(user.user_id, trail.trail_name)
+    db.session.add(training_path)
+    db.session.commit()
+
+    training_trails = Trails.query.filter(Trails.state_name == trail.state_name, Trails.difficulty < trail.difficulty, Trails.length < trail.length).all()
+    
+
+    for i in range(5):
+        trail_1 = random.choice(training_trails)
+        training_trail = crud.create_training_trail(trail_1.trail_id, training_path.training_path_id)
+        db.session.add(training_trail)
+    db.session.commit()
+
+    flash("Summit goal created!")
+    return redirect("/account")
+    
 
 
 

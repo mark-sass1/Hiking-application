@@ -51,4 +51,15 @@ def get_trail_by_id(trail_id):
 
     return Trails.query.get(trail_id)
 
+def create_training_path(user_id, summit_goal):
+
+    training_path = Training_path(user_id=user_id, summit_goal=summit_goal)
+
+    return training_path
+
+def create_training_trail(trail_id, training_path_id):
+
+    training_trail = Training_trails(trail_id=trail_id, training_path_id=training_path_id)
+
+    return training_trail
 

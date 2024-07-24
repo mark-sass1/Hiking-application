@@ -3,6 +3,13 @@
 {% block title %}{{ trail.trail_name }} - Details{% endblock %}
 
 {% block body %}
+<h3>Make Summit Goal</h3>
+<form action="/choose_summit", method="POST">
+  <input type="checkbox" name="summit_goal">{{ trail.trail_name }}
+  <input type="text" value="{{ trail.trail_id }}" name="trail_id" hidden><br>
+  <input type="submit"> 
+</form>
+
 <h2>{{ trail.trail_name }}</h2>
 <p>
   City: {{ trail.city_name }} <br>
