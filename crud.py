@@ -26,6 +26,14 @@ def get_user_by_email(email):
 
     return User.query.filter(User.email == email).first()
 
+def get_training_path_by_user_id(user_id):
+    """Return a training path by user id"""
+
+    return Training_path.query.filter(user_id == user_id).first()
+
+
+
+
 def create_trail(trail_id, trail_name, city_name, state_name, latitude, longitude, length, elevation_gain, difficulty, route_type):
     trail =  Trails(trail_id=trail_id,
                     trail_name=trail_name,
@@ -63,3 +71,8 @@ def create_training_trail(trail_id, training_path_id):
 
     return training_trail
 
+def create_activity_log(mileage_log, trail_notes, training_path_id):
+
+    activity_log = Activity_log(mileage_log=mileage_log, trail_notes=trail_notes, training_path_id=training_path_id)
+
+    return activity_log

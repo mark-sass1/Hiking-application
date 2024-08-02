@@ -122,6 +122,8 @@ def user_details():
     # pass training path / summit goal to jinja template
     # might create crud function to crud.get_training_path_by_user_id()
 
+    #  query for the user's activity to display the activity log
+
     return render_template("user_details.html", user=user)
 
 
@@ -155,13 +157,36 @@ def summit_goal():
         trail_1 = random.choice(training_trails)
         training_trail = crud.create_training_trail(trail_1.trail_id, training_path.training_path_id)
         db.session.add(training_trail)
-    db.session.commit()
+        db.session.commit()
 
     flash("Summit goal created!")
     return redirect("/account")
     
+@app.route("/activity_log")
+def activity_log():
 
+    return render_template("activity_log.html")
 
+@app.route("/trail_notes", methods=["POST"])
+def make_trail_data():
+
+    trail_notes = request.form.get("notes")
+    miles_hiked = request.form.get("miles")
+    hours_hiked = request.form.get("hours")
+
+    
+    user = crud.get_user_by_email(session["user_email"])
+    # call crud.get_training
+    training_path = crud.get_training_path_by_user_id(user.user_id)
+    create_activity_log = crud.create_activity_log(miles_hiked, trail_notes, training_path.training_path_id)
+
+    db.session.add(create_activity_log)
+    db.session.commit()
+
+    return {
+        "message": "Your hike has been logged",
+        "success": True
+    }
 
 
 if __name__ == "__main__":
