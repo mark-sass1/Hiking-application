@@ -16,6 +16,8 @@
      <input id="hoursInput" name="hours" type="number" step="0.1" min="0" />   
      
      <button type="submit">Submit</button>
+
+     <li><a href="/account">User Account</a></li>
 </form>
 <script>
      document.querySelector('#trailnotesform').addEventListener('submit', (evt) => {
@@ -28,11 +30,13 @@
           hours: document.querySelector('#hoursInput').value,
           };
 
+        console.log(formInputs);
+
      fetch("/trail_notes", {
           method: 'POST',
-          body: formInputs,
-          header: {
-               'Accept': 'application/json'
+          body: JSON.stringify(formInputs),
+          headers: {
+               'Content-Type': 'application/json'
           }
      })
      .then(response => response.json())

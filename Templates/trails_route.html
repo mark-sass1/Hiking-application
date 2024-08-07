@@ -2,6 +2,13 @@
 {% block title %}Trail List{% endblock %}
 
 {% block body %}
+<h1>Trails List</h1>
+
+<form action="/search-trails" method="GET">
+  <label for="search">Search by Trail Name:</label>
+  <input type="text" id="search" name="query">
+  <button type="submit">Search</button>
+</form>
 <ul>
     
     {% for state in state_list: %}

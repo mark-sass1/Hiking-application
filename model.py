@@ -14,9 +14,8 @@ class User(db.Model):
    password = db.Column(db.String)
    hiking_experience = db.Column(db.String)
 
-   
 
-
+   training_path = db.relationship("Training_path", back_populates="user")
 
 class Trails(db.Model):
    """A Trail list"""
@@ -34,7 +33,8 @@ class Trails(db.Model):
    difficulty = db.Column(db.Integer)
    route_type = db.Column(db.String)
 
-   training_trails= db.relationship("Training_trails", back_populates="trails")
+   training_trails = db.relationship("Training_trails", back_populates="trail")
+   activities = db.relationship("Activity_log", back_populates="trail")
 
 
 class Training_path(db.Model):
@@ -50,7 +50,8 @@ class Training_path(db.Model):
     progress_mileage = db.Column(db.Float)
 
     activities = db.relationship("Activity_log", back_populates="training_path")
-    
+    user = db.relationship("User", back_populates="training_path")
+    training_trails = db.relationship("Training_trails", back_populates="training_path")
 
 
 class Activity_log(db.Model):
@@ -66,7 +67,7 @@ class Activity_log(db.Model):
     trail_id = db.Column(db.Integer, db.ForeignKey("trails.trail_id"))
 
     training_path = db.relationship("Training_path", back_populates="activities")
-
+    trail = db.relationship("Trails", back_populates="activities")
 
 class Training_trails(db.Model):
     """training trails"""
@@ -78,7 +79,8 @@ class Training_trails(db.Model):
     training_path_id = db.Column(db.Integer, db.ForeignKey("training_path.training_path_id"))
     trails_completed = db.Column(db.Boolean)
 
-    trails = db.relationship("Trails" , back_populates="training_trails")
+    trail = db.relationship("Trails" , back_populates="training_trails")
+    training_path = db.relationship("Training_path", back_populates="training_trails")
 
 
 

@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, flash, session, redirect
 from model import connect_to_db, db, Trails
-# from crud import get_trails, get_trail_by_id, get_users, create_user
+# from crud import get_trails, get_trail_by_id, get_users, create_user, create_training_trail
 import crud
 import random
 
@@ -47,6 +47,18 @@ def all_trails():
 
     return render_template("trails_route.html", states_trails=states_trails, state_list=state_list)
 
+@app.route("/search-trails")
+def search_trails():
+    query = request.args.get('query')
+    # the user types in a trail name that needs to be validated
+    state_list = crud.get_states()
+    states_trails = crud.search_trails_by_name(query) # returns a single item
+    states_trails = [states_trails]
+
+    # check if states_trails returned None
+
+    
+    return render_template("trails_route.html", state_list=state_list, states_trails=states_trails)
 
 
 @app.route("/trails/<trail_id>")
@@ -116,16 +128,35 @@ def user_details():
     """Users account"""
     
     user = crud.get_user_by_email(session["user_email"])
-    print(user)
+    training_path = crud.get_training_path_by_user_id(user.user_id)
+    training_trails = []
+    if training_path:
+        activity_log_mileage = crud.activity_log_mileage(training_path.training_path_id)
+        # print(activity_log_mileage)
+        total_trails = crud.get_training_path_mileage(training_path.training_path_id) # fix => based on length of each trail
+        # convert total_trails from feet to miles
+        calculated_miles = total_trails/5280
+        print(calculated_miles)
+        completed_trails = crud.get_completed_trails(training_path.training_path_id)
+        # TODO - fix calculation for completion based on mileage
+        completion_percentage = (activity_log_mileage / calculated_miles * 100)
+        print(completion_percentage)
+        
+        for trail in training_path.training_trails:
+            tr_trail = crud.get_trail_by_id(trail.trail_id)
+            training_trails.append(tr_trail)
 
-    # get training path by user id
+            # end up with list of objects
+    else:
+        completion_percentage = 0
+
+    
+    return render_template("user_details.html", user=user, training_path=training_path, completion_percentage=completion_percentage, training_trails=training_trails)
+# get training path by user id
     # pass training path / summit goal to jinja template
     # might create crud function to crud.get_training_path_by_user_id()
 
     #  query for the user's activity to display the activity log
-
-    return render_template("user_details.html", user=user)
-
 
 @app.route("/users")
 def get_users():
@@ -170,15 +201,14 @@ def activity_log():
 @app.route("/trail_notes", methods=["POST"])
 def make_trail_data():
 
-    trail_notes = request.form.get("notes")
-    miles_hiked = request.form.get("miles")
-    hours_hiked = request.form.get("hours")
-
+    trail_notes = request.json.get("notes")
+    miles_hiked = request.json.get("miles")
+    hours_hiked = request.json.get("hours")
     
     user = crud.get_user_by_email(session["user_email"])
     # call crud.get_training
     training_path = crud.get_training_path_by_user_id(user.user_id)
-    create_activity_log = crud.create_activity_log(miles_hiked, trail_notes, training_path.training_path_id)
+    create_activity_log = crud.create_activity_log(mileage_log=miles_hiked, trail_notes=trail_notes, training_path_id=training_path.training_path_id)
 
     db.session.add(create_activity_log)
     db.session.commit()
