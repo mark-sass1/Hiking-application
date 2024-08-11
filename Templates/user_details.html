@@ -3,47 +3,93 @@
 {% block title %}Welcome back {{ user.name.capitalize() }}{% endblock %}
 
 {% block body %}
-{{ user.name.capitalize() }}
-<ul>
-    <li><a href="/trails">View all trails</a></li>
-    <li><a href="/activity_log">View Activity Log</a></li>
-</ul>
-
-<h2>Summit Goal</h2>
-{% if summit_goal %}
-  <p>Your current summit goal is: {{ summit_goal }}</p>
-{% else %}
-  <p>You don't have a summit goal set yet.</p>
-{% endif %}
-
-<h2>Training Path</h2>
-{% if training_path %}
-  <p>Training Path Id: {{ training_path.training_path_id }}</p>
-  <p>Summit Goal: {{training_path.summit_goal }}</p>
-  <p>Progress Mileage: {{ training_path.progress_mileage }}</p>
-  <p>Training Path Completed: {{ training_path.training_path_completed }}</p>
-  <p>Completion Percentage: {{ completion_percentage|round(2) }}%</p>
 
 
+<div class="container">
+  <div class="row">
+    Welcome Back! {{ user.name.capitalize() }}
+  </div>
+  <div class="row">
+    <div class="col-7 left">
+      <div class="row">
+      <h2>Summit Goal</h2>
+      {% if training_path.summit_goal %}
+        <p>Your current summit goal is: {{ training_path.summit_goal }}</p>
+      {% else %}
+        <p>You don't have a summit goal set yet.</p>
+      {% endif %}
+      </div>
+      <div class="row training-path">
+        <h2>Training Path</h2>
+        {% if training_path %}
+          <p>Training Path Id: {{ training_path.training_path_id }}</p>
+          <p>Summit Goal: {{training_path.summit_goal }}</p>
+          <p>Progress Mileage: {{ training_path.progress_mileage }}</p>
+          <p>Training Path Completed: {{ training_path.training_path_completed }}</p>
+          <p>Completion Percentage: {{ completion_percentage|round(2) }}%</p>
+        </div>
+    </div>
+    <div class="col-5 right">
+        <img src="static/images/Humphreys-trail.jpeg" alt="humphreys-trail">
+    </div>
+  </div>
+
+
+
+
+<div class="row">
+
+
+
+  
 
   {% for trail in training_trails %}
-    City: {{ trail.city_name }} <br>
-    State: {{ trail.state_name }}  <br>
-    Location: Lat:{{ trail.latitude }}, Lng:{{ trail.longitude }}  <br>
-    Length: {{ trail.length }}  <br>
-    Elevation Gain: {{ trail.elevation_gain }}  <br>
-    Difficulty Rating: {{ trail.difficulty }}  <br>
-    Route Type: {{ trail.route_type }}  <br>
-    Trail Id: {{ trail.trail_id }}
+    <div class="Trail-box">
+      Training Trail: {{ trail.training_trails[0].training_trail_id }} <br>
+      Trial Name: {{ trail.trail_name }}
+      City: {{ trail.city_name }} <br>
+      State: {{ trail.state_name }}  <br>
+      Location: Lat:{{ trail.latitude }}, Lng:{{ trail.longitude }}  <br>
+      Length: {{ trail.length }}  <br>
+      Elevation Gain: {{ trail.elevation_gain }}  <br>
+      Difficulty Rating: {{ trail.difficulty }}  <br>
+      Route Type: {{ trail.route_type }}  <br>
+      Trail Id: {{ trail.trail_id }}<br>
+    <br>
+    </div>
   {% endfor %}
 
+
+
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Trail Number</th>
+        <th scope="col">Trail Name</th>
+        <th scope="col">City Name</th>
+        <th scope="col">State Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for trail in training_trails %}
+      <tr>
+        <th scope="row">{{ trail.training_trails[0].training_trail_id }}</th>
+        <td>{{ trail.trail_name }}</td>
+        <td>{{ trail.city_name }}</td>
+        <td>{{ trail.state_name }}</td>
+      </tr>
+      
+      {% endfor %}
+    </tbody>
+  </table>
 
 {% else %}
   <p>You don't have a training path set yet.</p>
 {% endif %}
 
-
-
+</div>
+</div>
 {% endblock %}
 
 

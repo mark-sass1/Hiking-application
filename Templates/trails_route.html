@@ -2,6 +2,8 @@
 {% block title %}Trail List{% endblock %}
 
 {% block body %}
+<div class="container">
+  <div class="row">
 <h1>Trails List</h1>
 
 <form action="/search-trails" method="GET">
@@ -9,6 +11,36 @@
   <input type="text" id="search" name="query">
   <button type="submit">Search</button>
 </form>
+
+<div class="accordion" id="accordionExample">
+
+  {% for state in state_list: %}
+  {% if state in states_trails %}
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#{{ state }}" aria-controls="{{ state }}">
+      <h1>{{ state }}</h1>
+      </button>
+    </h2>
+    <div id="{{ state }}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+
+      <ul>
+        {% for trail in states_trails[state] %}
+        <li>
+          <a href="/trails/{{ trail.trail_id }}">
+            {{ trail.trail_name }}
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+  {% endfor %}
+</div>
+
 <ul>
     
     {% for state in state_list: %}
@@ -26,4 +58,8 @@
   </ul>
 
 
+
+
+</div>
+</div>
 {% endblock %}

@@ -3,6 +3,8 @@
 {% block title %}{{ trail.trail_name }} - Details{% endblock %}
 
 {% block body %}
+<div class="container">
+  <div class="row">
 <h3>Make Summit Goal</h3>
 <form action="/choose_summit", method="POST">
   <input type="checkbox" name="summit_goal">{{ trail.trail_name }}
@@ -21,5 +23,7 @@
   Route Type: {{ trail.route_type }}  <br>
   Trail Id: {{ trail.trail_id }}
 </p>
+</div>
+</div>
 {% endblock %}
 <!-- The trails link with have a checkbox to make trail summit goal -->

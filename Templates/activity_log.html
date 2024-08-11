@@ -2,7 +2,8 @@
 {% block title %}Activity Log{% endblock %}
 
 {% block body %}
-
+<div class="container">
+    <div class="row">
 <form id="trailnotesform">
      <label for="trailnotes">Enter trail notes:</label>
      <input id="trailnotes" type="text" name="notes"></br>
@@ -17,7 +18,7 @@
      
      <button type="submit">Submit</button>
 
-     <li><a href="/account">User Account</a></li>
+     
 </form>
 <script>
      document.querySelector('#trailnotesform').addEventListener('submit', (evt) => {
@@ -192,5 +193,6 @@
  <!-- skyscraper comparison -->
   <!-- pin map of all hikes -->
 
-
+</div>
+</div>
 {% endblock %}
