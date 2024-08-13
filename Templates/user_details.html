@@ -24,8 +24,9 @@
         {% if training_path %}
           <p>Training Path Id: {{ training_path.training_path_id }}</p>
           <p>Summit Goal: {{training_path.summit_goal }}</p>
-          <p>Progress Mileage: {{ training_path.progress_mileage }}</p>
-          <p>Training Path Completed: {{ training_path.training_path_completed }}</p>
+          <p>Progress Mileage: {{ activity_log_mileage }}</p>
+          <p>Any Trail Notes:</p>
+          <!-- <p>Training Path Completed: {{ training_path.training_path_completed }}</p> -->
           <p>Completion Percentage: {{ completion_percentage|round(2) }}%</p>
         </div>
     </div>
@@ -41,27 +42,6 @@
 
 
 
-  
-
-  {% for trail in training_trails %}
-    <div class="Trail-box">
-      Training Trail: {{ trail.training_trails[0].training_trail_id }} <br>
-      Trial Name: {{ trail.trail_name }}
-      City: {{ trail.city_name }} <br>
-      State: {{ trail.state_name }}  <br>
-      Location: Lat:{{ trail.latitude }}, Lng:{{ trail.longitude }}  <br>
-      Length: {{ trail.length }}  <br>
-      Elevation Gain: {{ trail.elevation_gain }}  <br>
-      Difficulty Rating: {{ trail.difficulty }}  <br>
-      Route Type: {{ trail.route_type }}  <br>
-      Trail Id: {{ trail.trail_id }}<br>
-    <br>
-    </div>
-  {% endfor %}
-
-
-
-
   <table class="table">
     <thead>
       <tr>
@@ -69,6 +49,12 @@
         <th scope="col">Trail Name</th>
         <th scope="col">City Name</th>
         <th scope="col">State Name</th>
+        <th scope="col">Location</th>
+        <th scope="col">Length</th>
+        <th scope="col">Elevation Gain</th>
+        <th scope="col">Difficulty Rating</th>
+        <th scope="col">Route Type</th>
+        <th scope="col">Trail Id</th>
       </tr>
     </thead>
     <tbody>
@@ -78,6 +64,12 @@
         <td>{{ trail.trail_name }}</td>
         <td>{{ trail.city_name }}</td>
         <td>{{ trail.state_name }}</td>
+        <td>Lat:{{ trail.latitude }}, Lng:{{ trail.longitude }}</td>
+        <td>{{ trail.length }}</td>
+        <td>{{ trail.elevation_gain }}</td>
+        <td>{{ trail.difficulty }}</td>
+        <td>{{ trail.route_type }}</td>
+        <td>{{ trail.trail_id }}</td>
       </tr>
       
       {% endfor %}

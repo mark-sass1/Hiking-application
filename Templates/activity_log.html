@@ -2,24 +2,39 @@
 {% block title %}Activity Log{% endblock %}
 
 {% block body %}
-<div class="container">
-    <div class="row">
-<form id="trailnotesform">
-     <label for="trailnotes">Enter trail notes:</label>
-     <input id="trailnotes" type="text" name="notes"></br>
+<div class="container" id="mountains">
+<div class="row">
+    <div class="col-4">
+    <div class="card" style="background-color: transparent; border: none;">
+      <div class="card-body p-2">
+        <h2>Let's Log Your Hikes!</h2>
+        <form id="trailnotesform">
+          <div class="row mb-1">
+            <label for="trailnotes" class="col-sm-5.5 col-form-label">Enter Trail Notes:</label>
+            <div class="col-lg-10">
+              <input type="text" name="notes" id="trailnotes" style="width: 88%;"/>
+            </div>
+          </div>
+          <div class="row mb-1">
+        <label for="milesInput" class="col-sm-5.5 col-form-label">Enter Miles hiked for your log!:</label>
+        <div class="col-sm-6">
+          <input type="number" name="miles" id="milesInput" step="1" min="0" />
+        </div>
+      </div>
+      <div class="row mb-1">
+        <label for="hoursInput" class="col-sm-5.5 col-form-label">Enter hiking hours completed:</label>
+        <div class="col-sm-6">
+          <input type="number" name="hours" id="hoursInput" step="0.1" min="0" />
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+    </form>
+    </div>
+    </div>
+    </div>
+    </div>
 
-     
-     <label for="milesInput">Enter Miles hiked for your log!</label>
-     <input id="milesInput" name="miles" type="number" step="1" min="0" /></br>
 
-     
-     <label for="hoursInput">Enter hiking hours completed:</label>
-     <input id="hoursInput" name="hours" type="number" step="0.1" min="0" />   
-     
-     <button type="submit">Submit</button>
-
-     
-</form>
 <script>
      document.querySelector('#trailnotesform').addEventListener('submit', (evt) => {
      evt.preventDefault(); 
@@ -53,138 +68,6 @@
 </script>
 
 
-
-   <!-- Log of total hiking miles -->
-    <!-- Total miles hiked -->
-     
-    <!-- <h2>Miles Hiked Log</h2>
-          <style>
-               input[type="number"] {
-               font-size: 16px;
-               padding: 10px;
-               border: 1px solid #ccc;
-               border-radius: 4px;
-               }
-          </style>
-
-          <label for="integerInput">Enter Miles hiked for your log!</label>
-          <input id="integerInput" name="integer" type="number" step="1" min="0" />
-          <button id="mileage-button" onclick="MileageLog()">Submit</button>
-
-          <div class="result" id="resultDisplay">Miles Hiked: 0</div>
-
-          <script>
-
-            let mileageBtn = document.querySelector('#mileage-button');
-
-            mileageBtn.addEventListener('click', MileageLog());
-          
-              let totalMiles = 0;
-      
-              function MileageLog() {
-               
-                // need to grab trail notes
-                // grab mileage
-                // grab trail id ?
-                // completion ?
-
-                  const inputField = document.getElementById('integerInput');
-                  const milesHiked = parseFloat(inputField.value);
-
-                  // once we have the information for the log, we will send it to the server
-      
-               
-                  if (isNaN(milesHiked) || milesHiked < 0) {
-                      alert('Please enter a valid number of miles.');
-                      return;
-                  }
-      
-               
-                  totalMiles += milesHiked;
-      
-               
-                  document.getElementById('resultDisplay').textContent = `Miles Hiked: ${totalMiles}`;
-      
-               
-                  inputField.value = '';
-              }
-          </script> -->
-       
-
-  
-  
-  
-  
-     <!-- Total list of completed hikes -->
-    
-   
-   
-   <!-- Total hours hiked -->
-    
-         <!-- <h2>Hours Completed Log</h2>
-         <style>
-             input[type="number"], button {
-                 font-size: 16px;
-                 padding: 10px;
-                 border: 1px solid #ccc;
-                 border-radius: 4px;
-             }
-             button {
-                 background-color: #4CAF50;
-                 color: white;
-                 cursor: pointer;
-                 border: none;
-             }
-             button:hover {
-                 background-color: #45a049;
-             }
-             .log {
-                 margin-top: 20px;
-             }
-             .log ul {
-                 list-style-type: none;
-                 padding: 0;
-             }
-             .log li {
-                 margin: 5px 0;
-             }
-         </style>
-   
-     
-         
-         <label for="hoursInput">Enter hiking hours completed:</label>
-         <input id="hoursInput" name="hours" type="number" step="0.1" min="0" />
-         <button onclick="addHours()">Add to Log</button>
-     
-         <div class="log">
-             <h2>Hours Completed:</h2>
-             <ul id="hoursLog"></ul>
-         </div>
-     
-         <script>
-             function addHours() {
-               
-                 const hoursInput = document.getElementById('hoursInput');
-                 const hoursValue = hoursInput.value;
-     
-               
-                 if (hoursValue.trim() === '' || isNaN(hoursValue) || Number(hoursValue) < 0) {
-                     alert('Please enter a valid number of hours.');
-                     return;
-                 }
-     
-          
-                 const logList = document.getElementById('hoursLog');
-                 const listItem = document.createElement('li');
-                 listItem.textContent = `Hours completed: ${hoursValue}`;
-     
-               
-                 logList.appendChild(listItem);
-     
-               
-                 hoursInput.value = '';
-             }
-         </script> -->
      
      <!-- Total elevation hiked -->
 

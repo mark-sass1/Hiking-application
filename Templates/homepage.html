@@ -6,61 +6,61 @@
 {% block body %}
 <div class="container" id="homepage">
   <div class="row">
-    <h1>Welcome To Hiking Buddy!</h1>
+    <h1 class="custom-color">Welcome To Hiking Buddy!</h1>
 
-    <h2>Prepare For Your Hiking Fitness Journey!</h2>
+    <h2 class="custom-color">Prepare For Your Hiking Fitness Journey!</h2>
   </div>
   
   
   <div class="row">
-    <div class="col-6">
+    <div class="col-4">
     <div class="card">
-      <div class="card-body">
+      <div class="card-body p-2">
         <h2>Let's Create an Account!</h2>
         <form action="/register" method="POST">
-          <div class="row mb-3">
-            <label for="inputName3" class="col-sm-2 col-form-label">Name</label>
-            <div class="col-sm-10">
+          <div class="row mb-1">
+            <label for="inputName3" class="col-sm-3 col-form-label">Name</label>
+            <div class="col-sm-5">
               <input type="text" name="name" class="form-control" id="inputName3">
             </div>
           </div>
-          <div class="row mb-3">
-        <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
-        <div class="col-sm-10">
+          <div class="row mb-1">
+        <label for="inputEmail3" class="col-sm-3 col-form-label">Email</label>
+        <div class="col-sm-7">
           <input type="email" name="email" class="form-control" id="inputEmail3">
         </div>
       </div>
-      <div class="row mb-3">
-        <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
-        <div class="col-sm-10">
+      <div class="row mb-1">
+        <label for="inputPassword3" class="col-sm-3 col-form-label">Password</label>
+        <div class="col-sm-7">
           <input type="password" name="password" class="form-control" id="inputPassword3">
         </div>
       </div>
-      <button type="submit" class="btn btn-primary">Sign in</button>
+      <button type="submit" class="btn btn-primary btn-sm">Sign in</button>
     </form>
     </div>
     </div>
     </div>
 
   <div class="row">
-    <div class="col-6">
+    <div class="col-4">
     <div class="card">
-      <div class="card-body">
+      <div class="card-body p-2">
         <h2>Log In</h2>
         <form action="/login" method="POST">
-      <div class="row mb-3">
-        <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
-        <div class="col-sm-10">
+      <div class="row mb-1">
+        <label for="inputEmail3" class="col-sm-3 col-form-label">Email</label>
+        <div class="col-sm-7">
           <input type="email" name="email" class="form-control" id="inputEmail3">
         </div>
       </div>
-      <div class="row mb-3">
-        <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
-        <div class="col-sm-10">
+      <div class="row mb-1">
+        <label for="inputPassword3" class="col-sm-3 col-form-label">Password</label>
+        <div class="col-sm-7">
           <input type="password" name="password" class="form-control" id="inputPassword3">
         </div>
       </div>
-      <button type="submit" class="btn btn-primary">Sign in</button>
+      <button type="submit" class="btn btn-primary btn-sm">Sign in</button>
     </form>
     </div>
     </div>

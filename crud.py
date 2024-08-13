@@ -73,9 +73,9 @@ def create_training_path(user_id, summit_goal):
 
     return training_path
 
-def create_training_trail(trail_id, training_path_id):
+def create_training_trail(trail_id, training_path_id, length):
 
-    training_trail = Training_trails(trail_id=trail_id, training_path_id=training_path_id)
+    training_trail = Training_trails(trail_id=trail_id, training_path_id=training_path_id, length=length)
 
     return training_trail
 

@@ -139,7 +139,7 @@ def user_details():
         print(calculated_miles)
         completed_trails = crud.get_completed_trails(training_path.training_path_id)
         # TODO - fix calculation for completion based on mileage
-        completion_percentage = (activity_log_mileage / calculated_miles * 100)
+        completion_percentage = (activity_log_mileage / calculated_miles * 10)
         print(completion_percentage)
         
         for trail in training_path.training_trails:
@@ -151,7 +151,7 @@ def user_details():
         completion_percentage = 0
 
     
-    return render_template("user_details.html", user=user, training_path=training_path, completion_percentage=completion_percentage, training_trails=training_trails)
+    return render_template("user_details.html", user=user, training_path=training_path, completion_percentage=completion_percentage, training_trails=training_trails, activity_log_mileage=activity_log_mileage)
 # get training path by user id
     # pass training path / summit goal to jinja template
     # might create crud function to crud.get_training_path_by_user_id()

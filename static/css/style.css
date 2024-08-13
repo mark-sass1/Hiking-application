@@ -9,6 +9,21 @@
   margin: 0;
 }
 
+.custom-color {
+  color: #f2f4f6; /* Tomato color */
+}
+
+
+#mountains {
+  background-image: url('../images/activity-log2.jpg')!important; 
+  background-size: 76%;
+  background-repeat: no-repeat;
+  /* background-attachment: fixed; */
+  background-position: right bottom 90px;
+  height: 100vh;
+  margin: 0;
+}
+
 #links {
   background-color: rgba(83, 140, 196, 0.845)!important;
 }
@@ -23,6 +38,44 @@
 
 .training-path {
   margin-top: 5px;
+}
+
+
+/* Adjust the padding and font size of the accordion body */
+.custom-body {
+  padding: 10px; /* Adjust padding */
+  font-size: 1rem; /* Adjust font size */
+}
+
+/* Adjust the padding and font size of the button */
+.custom-button {
+  padding: 5px 10px; /* Adjust padding */
+  font-size: .5rem; /* Adjust font size */
+}
+
+
+
+.custom-accordion {
+  width: 15%; /* Adjust the width as needed */
+  margin: right; /* Center the accordion horizontally */
+}
+
+/* Adjust the font size of the accordion title */
+.accordion-title {
+  font-size: 1rem;
+}
+
+/* Adjust the size and padding of the links in the accordion */
+.custom-link {
+  font-size: 1rem; /* Adjust the font size of the links */
+  padding: 5px 0; /* Adjust the padding between links */
+  text-decoration: none; /* Remove underline */
+}
+
+/* Adjust the overall size of the accordion items */
+.accordion-item {
+  margin-bottom: 0px; /* Space between accordion items */
+  border-radius: 0px; /* Rounded corners */
 }
 
 /* #links {
