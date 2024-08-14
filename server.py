@@ -129,11 +129,13 @@ def user_details():
     
     user = crud.get_user_by_email(session["user_email"])
     training_path = crud.get_training_path_by_user_id(user.user_id)
+    activity_log_mileage = None
     training_trails = []
     if training_path:
         activity_log_mileage = crud.activity_log_mileage(training_path.training_path_id)
-        # print(activity_log_mileage)
+        print(activity_log_mileage)
         total_trails = crud.get_training_path_mileage(training_path.training_path_id) # fix => based on length of each trail
+        print(total_trails)
         # convert total_trails from feet to miles
         calculated_miles = total_trails/5280
         print(calculated_miles)

@@ -56,7 +56,7 @@
 
 
 .custom-accordion {
-  width: 15%; /* Adjust the width as needed */
+  margin-top: 1rem;
   margin: right; /* Center the accordion horizontally */
 }
 
